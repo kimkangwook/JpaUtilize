@@ -10,6 +10,8 @@ import java.util.List;
 public class MemberRepository {
 
     // 스프링이 생성한 EntityManager을 주입받음
+    // EntityManager는 원래 Autowired로 인젝션 못받고 PersistenceContext 표준어노테이션으로 주입받는데
+    // 스프링부트(정확하게는 스프링 data jpa)가 Autowired로도 지원받게 해줌
     @PersistenceContext
     private EntityManager em;
 

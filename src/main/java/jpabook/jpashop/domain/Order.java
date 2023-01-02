@@ -1,6 +1,8 @@
 package jpabook.jpashop.domain;
 
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
@@ -13,6 +15,7 @@ import static javax.persistence.FetchType.*;
 @Entity
 @Table(name = "orders")
 @Getter @Setter
+@NoArgsConstructor(access= AccessLevel.PROTECTED)
 public class Order {
 
     @Id @GeneratedValue
@@ -29,6 +32,7 @@ public class Order {
     @OneToOne(fetch= LAZY)
     @JoinColumn(name="delivery_id")
     private Delivery delivery;
+
 
 
     private LocalDateTime orderDate;//주문시간 - 자바 8에서 하이버네이트가 알아서 테이블과 시간을 매핑시켜줌

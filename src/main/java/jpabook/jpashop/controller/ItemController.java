@@ -64,18 +64,19 @@ public class ItemController {
     }
 
     @PostMapping("/items/{itemId}/edit")
-    public String updateItem(@PathVariable String itemId,@ModelAttribute("form") BookForm form) {
+    public String updateItem(@PathVariable Long itemId,@ModelAttribute("form") BookForm form) {
 
         //id는 특히 외부에서 데이터 id를 넣어서 조작할 수도 있으니 보안 유지해야함(서버단)
-        Book book = new Book();
-        book.setId(form.getId());
-        book.setName(form.getName());
-        book.setPrice(form.getPrice());
-        book.setStockQuantity(form.getStockQuantity());
-        book.setAuthor(form.getAuthor());
-        book.setIsbn(form.getIsbn());
+//        Book book = new Book();
+//        book.setId(form.getId()); // 이미 DB에 저장되어 id가 존재함(기존 식별자가 존재하면 준영속 엔티티)
+//        book.setName(form.getName());
+//        book.setPrice(form.getPrice());
+//        book.setStockQuantity(form.getStockQuantity());
+//        book.setAuthor(form.getAuthor());
+//        book.setIsbn(form.getIsbn());
 
-        itemService.saveItem(book);
+        itemService.updateItem(form.getId(), form.getName(), form.getPrice(), form.getStockQuantity());
+
         return "redirect:/items";
     }
 }

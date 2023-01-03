@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
@@ -35,9 +36,6 @@ public class MemberController {
             // thymeleaf - spring 결합
             return "members/createMemberForm";
         }
-
-
-
         Address address = new Address(form.getCity(), form.getStreet(), form.getZipcode());
 
         Member member = new Member();
@@ -46,5 +44,13 @@ public class MemberController {
 
         memberService.join(member);
         return "redirect:/";
+    }
+
+    @GetMapping("/members")
+    public String list(Model model) {
+        List<Member> members = memberService.findMembers(); // 여기서 화면에 출력을 위한 데이터인 DTO로 변환해서 주는 게 좋음(구분)
+                                                           // API를 만들때는 절대 Entity를 반환해서는 안됨
+        model.addAttribute("members", members);
+        return "/members/memberList";
     }
 }

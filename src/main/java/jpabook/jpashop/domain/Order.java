@@ -29,7 +29,7 @@ public class Order {
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
     private List<OrderItem> orderItems = new ArrayList<>();
 
-    @OneToOne(fetch= LAZY)
+    @OneToOne(fetch= LAZY, cascade=CascadeType.ALL) //있어야하네?? 없으니까 ORDER 엔티티 만들 때 DELIVERY 엔티티가 없다고함
     @JoinColumn(name="delivery_id")
     private Delivery delivery;
 
@@ -72,7 +72,7 @@ public class Order {
 
     //==비즈니스 로직==//
     /**
-     * 주문 취소
+     * 주문
      */
     public void cancel() {
         if (delivery.getStatus()==DeliveryStatus.COMP) {
